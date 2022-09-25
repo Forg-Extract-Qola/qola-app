@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qola_app/routes.dart';
 import 'package:qola_app/shared/qola_buttons.dart';
 import 'package:qola_app/shared/qola_text_field.dart';
 import 'package:qola_app/shared/qola_texts.dart';
@@ -46,7 +47,7 @@ class SignInSubmitButton extends StatelessWidget {
       padding: const EdgeInsets.only(top: 30.0),
       child: LargeSolidButton(
         text: 'INGRESAR',
-        onPressed: () { },
+        onPressed: () => Navigator.pushNamed(context, RoutesPath.mainAdminPath),
       ),
     );
   }

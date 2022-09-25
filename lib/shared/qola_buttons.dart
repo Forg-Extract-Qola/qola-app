@@ -112,7 +112,7 @@ class LargeSolidButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0)
             ),
             splashColor: Colors.transparent,
-            onPressed: () => onPressed?.call(),
+            onPressed: onPressed,
             child: child ?? TextBold(text: text ?? '')
         )
       ),
