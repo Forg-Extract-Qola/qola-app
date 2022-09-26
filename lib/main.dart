@@ -21,6 +21,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  //await SystemChrome.setEnabledSystemUIMode(null, overlays: []);
 
   runApp(const MyApp());
 }

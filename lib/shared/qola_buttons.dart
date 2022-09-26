@@ -35,7 +35,7 @@ class LargeLightButton extends StatelessWidget {
           ),
           splashColor: Colors.transparent,
           onPressed: () => onPressed?.call(),
-          child: child ?? TextBold(text: text ?? '')
+          child: child ?? TextBold(text ?? '')
         )
       ),
     );
@@ -73,7 +73,7 @@ class LargeAccentButton extends StatelessWidget {
               ),
               splashColor: Colors.transparent,
               onPressed: () => onPressed?.call(),
-              child: child ?? TextBold(text: text ?? '', color: textAccentColor)
+              child: child ?? TextBold(text ?? '', color: textAccentColor)
           )
       ),
     );
@@ -113,7 +113,7 @@ class LargeSolidButton extends StatelessWidget {
             ),
             splashColor: Colors.transparent,
             onPressed: onPressed,
-            child: child ?? TextBold(text: text ?? '')
+            child: child ?? TextBold(text ?? '')
         )
       ),
     );

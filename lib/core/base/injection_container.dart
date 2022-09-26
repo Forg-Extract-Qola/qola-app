@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:qola_app/core/providers/http_provider.dart';
 import 'package:qola_app/core/providers/preferences_provider.dart';
+import 'package:qola_app/layouts/menu/cubits/menu_bar_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -29,6 +30,7 @@ Future<void> init() async {
 
 Future<void> initLayouts() async {
   //! Cubits
+  sl.registerFactory(() => MenuBarCubit());
 }
 
 

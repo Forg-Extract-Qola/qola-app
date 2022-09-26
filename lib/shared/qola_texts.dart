@@ -67,21 +67,44 @@ class TextLink extends StatelessWidget {
   }
 }
 
+class CustomText extends StatelessWidget {
+
+  final String text;
+  final Color color;
+  final double size;
+
+  const CustomText(this.text, {
+    Key? key,
+    this.color = textColor,
+    this.size = 12.0
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(text, style: genericTextStyle(
+        fontWeight: FontWeight.normal,
+        fontSize: size,
+        color: color
+    ));
+  }
+}
+
 
 
 class TextBold extends StatelessWidget {
 
   final String text;
   final Color color;
+  final double size;
 
-  const TextBold({
-    required this.text,
+  const TextBold(this.text, {
     this.color = textColor,
+    this.size = 16.0,
     Key? key
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: genericTextStyle(fontWeight: FontWeight.bold, color: color));
+    return Text(text, style: genericTextStyle(fontWeight: FontWeight.bold, color: color, fontSize: size));
   }
 }

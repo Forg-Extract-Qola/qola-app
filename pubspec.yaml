@@ -27,6 +27,7 @@ dependencies:
   cached_network_image: ^3.2.1
   cupertino_icons: ^1.0.2
   mime: ^1.0.2
+  curved_navigation_bar: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -46,3 +47,12 @@ flutter:
     - family: Forum
       fonts:
         - asset: assets/fonts/Forum-Regular.ttf
+    - family: DM_Sans
+      fonts:
+        - asset: assets/fonts/DM_Sans/DMSans-Regular.ttf
+        - asset: assets/fonts/DM_Sans/DMSans-Medium.ttf
+        - asset: assets/fonts/DM_Sans/DMSans-MediumItalic.ttf
+        - asset: assets/fonts/DM_Sans/DMSans-Italic.ttf
+          style: italic
+        - asset: assets/fonts/DM_Sans/DMSans-Bold.ttf
+        - asset: assets/fonts/DM_Sans/DMSans-BoldItalic.ttf

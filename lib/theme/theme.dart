@@ -59,7 +59,7 @@ TextStyle genericTextStyle({
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,
-      //fontFamily: 'Forum'
+      fontFamily: 'DM_Sans'
   );
 }
 
@@ -72,7 +72,7 @@ TextStyle buttonTextStyle({
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,
-      fontFamily: 'Forum'
+      fontFamily: 'DM_Sans'
   );
 }
 
@@ -85,7 +85,7 @@ TextStyle linkTextStyle({
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,
-      fontFamily: 'Forum',
+      fontFamily: 'DM_Sans',
       decoration: TextDecoration.underline
   );
 }
