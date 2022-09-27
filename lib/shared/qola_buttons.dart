@@ -66,14 +66,59 @@ class LargeAccentButton extends StatelessWidget {
               maxHeight: 65.0
           ),
           child: MaterialButton(
-              color: registerColor,
+              color: accentColor,
               elevation: 0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)
               ),
               splashColor: Colors.transparent,
               onPressed: () => onPressed?.call(),
-              child: child ?? TextBold(text ?? '', color: textAccentColor)
+              child: child ?? TextBold(text ?? '', color: textColor)
+          )
+      ),
+    );
+  }
+}
+
+class LargeLightOutlinedButton extends StatelessWidget {
+  final Widget? child;
+  final String? text;
+  final Function()? onPressed;
+
+  const LargeLightOutlinedButton({
+    this.child,
+    this.text,
+    this.onPressed,
+    Key? key
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Container(
+          width: SizeConfig.safeBlockHorizontal!*90,
+          height: 45.0,
+          constraints: const BoxConstraints(
+              maxWidth: 350.0,
+              maxHeight: 65.0
+          ),
+          child: OutlinedButton(
+              //color: Colors.transparent,
+              //elevation: 0,
+              //shape: RoundedRectangleBorder(
+              //  borderRadius: BorderRadius.circular(20.0),
+              //),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(width: 1.0, color: textColor),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                surfaceTintColor: primaryColor,
+                onSurface: primaryColor
+              ),
+              onPressed: onPressed,
+              child: child ?? TextBold(text ?? '', color: textColor)
           )
       ),
     );
@@ -106,14 +151,15 @@ class LargeSolidButton extends StatelessWidget {
             maxHeight: 65.0
         ),
         child: MaterialButton(
-            color: primaryColor,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)
-            ),
-            splashColor: Colors.transparent,
-            onPressed: onPressed,
-            child: child ?? TextBold(text ?? '')
+          color: primaryColor,
+          disabledColor: primaryColor.withOpacity(0.75),
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0)
+          ),
+          splashColor: primaryColor.withOpacity(0.75),
+          onPressed: onPressed,
+          child: child ?? TextBold(text ?? '')
         )
       ),
     );

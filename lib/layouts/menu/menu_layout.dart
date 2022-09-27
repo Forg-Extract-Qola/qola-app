@@ -48,9 +48,9 @@ class MenuLayout extends StatelessWidget {
             body: pages.isEmpty ? child : pages[state].page,
             bottomNavigationBar: pages.isEmpty ? null : CurvedNavigationBar(
               key: navigationKey,
-              color: primaryColor,
+              color: accentColor,
               backgroundColor: Colors.transparent,
-              buttonBackgroundColor: primaryColor,
+              buttonBackgroundColor: accentColor,
               height: 60.0,
               animationCurve: Curves.easeOut,
               animationDuration: const Duration(milliseconds: 400),

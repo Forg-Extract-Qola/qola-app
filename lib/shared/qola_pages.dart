@@ -1,30 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:qola_app/core/utils/size_config.dart';
 import 'package:qola_app/shared/qola_buttons.dart';
+import 'package:qola_app/shared/qola_images.dart';
 import 'package:qola_app/shared/qola_texts.dart';
 import 'package:qola_app/theme/colors.dart';
 
 class CustomPageWithBackground extends StatelessWidget {
 
   final Widget child;
+  final Color background;
 
-  const CustomPageWithBackground({Key? key, required this.child}) : super(key: key);
+  const CustomPageWithBackground({
+    Key? key,
+    required this.child,
+    this.background = backgroundColor
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      backgroundColor: background.withOpacity(0.7),
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Container(
-            height: SizeConfig.screenHeight!/2.732,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/backgrounds/bg.png'),
-                fit: BoxFit.fill
-              )
-            ),
+          // Container(
+          //   height: SizeConfig.screenHeight!/2.732,
+          //   decoration: const BoxDecoration(
+          //     image: DecorationImage(
+          //       image: AssetImage('assets/images/backgrounds/bg.png'),
+          //       fit: BoxFit.fill
+          //     )
+          //   ),
+          // ),
+          Positioned(
+            top: 0,
+            child: CustomImage(url: 'assets/images/backgrounds/background-fill.svg', width: SizeConfig.screenWidth),
           ),
           child
         ],
@@ -48,40 +59,50 @@ class CustomAuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      //backgroundColor: registerColor.withOpacity(0.7),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
+            SizedBox(
               height: SizeConfig.screenHeight!/2.732,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/backgrounds/background_image.png'),
-                      fit: BoxFit.fill
-                  )
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              //color: Colors.red,
+              // decoration: const BoxDecoration(
+              //     image: DecorationImage(
+              //         image: AssetImage('assets/images/backgrounds/background_image.png'),
+              //         fit: BoxFit.fill
+              //     )
+              // ),
+              child: Stack(
                 children: [
-                  Center(
-                    child: SizedBox(
-                      width: SizeConfig.screenWidth!/2.74,
-                      height: SizeConfig.screenHeight!/7.762,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('assets/images/backgrounds/logo.png')
-                            )
+                  Positioned(
+                    top: 0,
+                    child: CustomImage(url: 'assets/images/backgrounds/background-top.svg', height: SizeConfig.screenHeight!/2.3,),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          width: SizeConfig.screenWidth!/2.74,
+                          height: SizeConfig.screenHeight!/7.762,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/backgrounds/logo.png')
+                                )
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: SizeConfig.screenHeight!/68.3),
+                          child: const TextTitle("Bienvenido!"),
+                        ),
+                      )
+                    ],
                   ),
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: SizeConfig.screenHeight!/68.3),
-                      child: const TextTitle("Bienvenido!"),
-                    ),
-                  )
                 ],
               ),
             ),

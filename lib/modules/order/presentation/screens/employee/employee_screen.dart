@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qola_app/routes.dart';
 import 'package:qola_app/shared/qola_alignments.dart';
 import 'package:qola_app/shared/qola_buttons.dart';
 import 'package:qola_app/shared/qola_card.dart';
@@ -42,7 +43,7 @@ class EmployeeAdd extends StatelessWidget {
   Widget build(BuildContext context) {
     return LargeAccentButton(
       text: 'Nuevo colaborador',
-      onPressed: () {},
+      onPressed: () => Navigator.pushNamed(context, RoutesPath.employeeAddEditPath),
     );
   }
 }

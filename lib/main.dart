@@ -21,7 +21,6 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  //await SystemChrome.setEnabledSystemUIMode(null, overlays: []);
 
   runApp(const MyApp());
 }
@@ -37,8 +36,7 @@ class MyApp extends StatelessWidget {
       theme: theme(context),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: RouteGenerator.generateRoute,
-      initialRoute: RoutesPath.homeAuthPath,
-      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: RoutesPath.homeAuthPath
     );
   }
 }

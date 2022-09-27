@@ -2,6 +2,12 @@ import 'package:get_it/get_it.dart';
 import 'package:qola_app/core/providers/http_provider.dart';
 import 'package:qola_app/core/providers/preferences_provider.dart';
 import 'package:qola_app/layouts/menu/cubits/menu_bar_cubit.dart';
+import 'package:qola_app/modules/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:qola_app/modules/auth/data/data_sources/session_local_data_source.dart';
+import 'package:qola_app/modules/auth/data/repositories/auth_repository_impl.dart';
+import 'package:qola_app/modules/auth/domain/repositories/auth_repository.dart';
+import 'package:qola_app/modules/auth/domain/use_cases/do_admin_login.dart';
+import 'package:qola_app/modules/auth/presentation/bloc/admin/admin_login_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -9,8 +15,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   await initLayouts();
   await initAuthModule();
-  await initAdminModule();
-  await initEmployeeModule();
+  await initOrderModule();
   await initBoxRepositories();
 
   //! Core
@@ -36,15 +41,27 @@ Future<void> initLayouts() async {
 
 Future<void> initAuthModule() async {
   //! Cubits
+  sl.registerFactory(() => AdminLoginBloc(doAdminLogin: sl()));
 
   //! Use Cases
+  sl.registerLazySingleton(() => DoAdminLogin(authRepository: sl()));
 
   //! Repositories
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
+    authRemoteDataSource: sl(),
+    sessionLocalDataSource: sl()
+  ));
 
   //! Data Sources
+  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(
+    httpProvider: sl()
+  ));
+  sl.registerLazySingleton<SessionLocalDataSource>(() => SessionLocalDataSourceImpl(
+    appPreferences: sl()
+  ));
 }
 
-Future<void> initAdminModule() async {
+Future<void> initOrderModule() async {
   //! Cubits
 
   //! Use Cases
@@ -54,15 +71,6 @@ Future<void> initAdminModule() async {
   //! Data Sources
 }
 
-Future<void> initEmployeeModule() async {
-  //! Cubits
-
-  //! Use Cases
-
-  //! Repositories
-
-  //! Data Sources
-}
 
 Future<void> initBoxRepositories() async {
   //! Repositories

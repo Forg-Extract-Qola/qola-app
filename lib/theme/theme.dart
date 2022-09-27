@@ -3,7 +3,7 @@ import 'package:qola_app/theme/colors.dart';
 
 ThemeData theme(BuildContext context) {
   return ThemeData(
-    primarySwatch: Colors.orange,
+    primarySwatch: Colors.blueGrey,
     primaryColor: primaryColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     scaffoldBackgroundColor: backgroundColor,
