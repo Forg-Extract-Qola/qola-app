@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qola_app/core/utils/size_config.dart';
+import 'package:qola_app/shared/qola_buttons.dart';
 import 'package:qola_app/shared/qola_texts.dart';
+import 'package:qola_app/theme/colors.dart';
 
 class CustomPageWithBackground extends StatelessWidget {
 
@@ -89,6 +91,58 @@ class CustomAuthPage extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CustomBlankPage extends StatelessWidget {
+
+  final Widget child;
+
+  const CustomBlankPage({
+    Key? key,
+    required this.child
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 15.0),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+class CustomBlankWithTitlePage extends StatelessWidget {
+
+  final String title;
+  final Widget child;
+  final Widget? action;
+
+  const CustomBlankWithTitlePage({
+    Key? key,
+    required this.title,
+    required this.child,
+    this.action
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        foregroundColor: Colors.black87,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: CustomText(title, size: 22.0, color: Colors.black87, weight: FontWeight.w500),
+        actions: [ action ?? Container() ],
+      ),
+      body: SingleChildScrollView(
+        child: child
       ),
     );
   }

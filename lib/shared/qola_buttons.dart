@@ -119,3 +119,49 @@ class LargeSolidButton extends StatelessWidget {
     );
   }
 }
+
+class TextIconPrimaryButton extends StatelessWidget {
+
+  final Function()? onPressed;
+  final String text;
+  final IconData icon;
+  final double size;
+
+  const TextIconPrimaryButton({
+    Key? key,
+    required this.text,
+    required this.icon,
+    this.onPressed,
+    this.size = 14.0
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    return Padding(
+      padding: EdgeInsets.zero,
+      child: Container(
+          height: 60.0,
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+          constraints: const BoxConstraints(
+            maxHeight: 60.0
+          ),
+          child: MaterialButton(
+            color: primaryColor,
+            //elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0)
+            ),
+            onPressed: onPressed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: size),
+                CustomText(text, size: size)
+              ],
+            )
+          )
+      ),
+    );
+  }
+}

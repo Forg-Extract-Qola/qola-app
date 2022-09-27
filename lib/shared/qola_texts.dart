@@ -72,17 +72,19 @@ class CustomText extends StatelessWidget {
   final String text;
   final Color color;
   final double size;
+  final FontWeight weight;
 
   const CustomText(this.text, {
     Key? key,
     this.color = textColor,
-    this.size = 12.0
+    this.size = 12.0,
+    this.weight = FontWeight.normal
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(text, style: genericTextStyle(
-        fontWeight: FontWeight.normal,
+        fontWeight: weight,
         fontSize: size,
         color: color
     ));

@@ -16,6 +16,7 @@ class MenuSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
+        color: primaryColor,
         child: Stack(
           children: [
             Positioned.fill(
@@ -26,7 +27,7 @@ class MenuSection extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const TextBold('Qola', color: Colors.black87, size: 25.0),
+                      const TextBold('Qola', color: textColor, size: 30.0),
                       const SizedBox(height: 20.0),
                       ListView.builder(
                         shrinkWrap: true,
@@ -45,7 +46,7 @@ class MenuSection extends StatelessWidget {
               right: 20,
               child: IconButton(
                 splashRadius: 25.0,
-                icon: const Icon(Icons.close),
+                icon: const Icon(Icons.close, color: textColor),
                 onPressed: () => Navigator.pop(context),
               ),
             )
@@ -74,11 +75,11 @@ class _Item extends StatelessWidget {
         children: [
           item.icon != null ? Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: Icon(item.icon, color: primaryColor),
+            child: Icon(item.icon, color: textColor),
           ): Container(),
           GestureDetector(
             onTap: item.route != null ? () => Navigator.pushNamed(context, item.route!) : null,
-            child: CustomText(item.displayName, color: Colors.black87, size: 18.0,)
+            child: CustomText(item.displayName, color: textColor, size: 18.0,)
           )
         ],
       ),
