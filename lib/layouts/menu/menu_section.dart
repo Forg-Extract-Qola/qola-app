@@ -23,16 +23,20 @@ class MenuSection extends StatelessWidget {
               child: SafeArea(
                 top: true,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const TextBold('Qola', color: textColor, size: 30.0),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: TextBold('Qola', color: textColor, size: 30.0),
+                      ),
                       const SizedBox(height: 20.0),
                       ListView.builder(
                         shrinkWrap: true,
                         itemCount: items.length,
                         itemBuilder: (context, index) {
+                          final item = items[index];
                           return _Item(item: items[index]);
                         }
                       ),
@@ -45,7 +49,7 @@ class MenuSection extends StatelessWidget {
               top: 35,
               right: 20,
               child: IconButton(
-                splashRadius: 25.0,
+                splashRadius: 20.0,
                 icon: const Icon(Icons.close, color: textColor),
                 onPressed: () => Navigator.pop(context),
               ),
@@ -69,21 +73,26 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        children: [
-          item.icon != null ? Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: Icon(item.icon, color: textColor),
-          ): Container(),
-          GestureDetector(
-            onTap: item.route != null ? () => Navigator.pushNamed(context, item.route!) : null,
-            child: CustomText(item.displayName, color: textColor, size: 18.0,)
-          )
-        ],
+    return SizedBox(
+      height: 50.0,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: item.route != null ? () => Navigator.pushNamed(context, item.route!) : null,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              children: [
+                if (item.icon != null) Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: Icon(item.icon, color: textColor),
+                ),
+                CustomText(item.displayName, color: textColor, size: 18.0)
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 }
-

@@ -53,7 +53,7 @@ class CustomImageCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(title, color: Colors.black87, weight: FontWeight.w500, size: 18.0),
+                  CustomText(title, color: Colors.black87, weight: FontWeight.w500, size: 15.0),
                   const SizedBox(height: 10.0),
                   CustomText(description ?? '', color: Colors.black45, weight: FontWeight.w500, size: 12.0,)
                 ],

@@ -1,9 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:qola_app/core/exceptions/failure.dart';
+import 'package:qola_app/modules/order/data/data_sources/employee_remote_data_source.dart';
+import 'package:qola_app/modules/order/data/factories/employee_factory.dart';
 import 'package:qola_app/modules/order/domain/dtos/employee_dto.dart';
 import 'package:qola_app/modules/order/domain/repositories/employee_repository.dart';
 
 class EmployeeRepositoryImpl implements EmployeeRepository {
+
+  final EmployeeRemoteDataSource _employeeRemoteDataSource;
+
+  EmployeeRepositoryImpl({
+    required EmployeeRemoteDataSource employeeRemoteDataSource
+  }) : _employeeRemoteDataSource = employeeRemoteDataSource;
 
 
   @override
@@ -19,9 +27,15 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   }
 
   @override
-  Future<Either<Failure, List<EmployeeDto>>> getEmployees() {
-    // TODO: implement getEmployees
-    throw UnimplementedError();
+  Future<Either<Failure, List<EmployeeDto>>> getEmployees() async {
+    try {
+      const int restaurant = 34;
+      final response = await _employeeRemoteDataSource.getEmployeesByRestaurant(restaurant);
+      return Right(EmployeeFactory.convertToListEmployeeDto(response));
+    }
+    catch (e) {
+      return const Left(ServerFailure());
+    }
   }
 
   @override

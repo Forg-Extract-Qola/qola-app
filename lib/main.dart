@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qola_app/core/base/injection_container.dart' as di;
+import 'package:qola_app/core/base/injection_container.dart';
 import 'package:qola_app/core/data/database.dart';
+import 'package:qola_app/modules/auth/domain/repositories/auth_repository.dart';
 import 'package:qola_app/routes.dart';
 import 'package:qola_app/theme/theme.dart';
 
@@ -22,11 +24,19 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const MyApp());
+  final initialRoute = sl<AuthRepository>().getInitialPage();
+
+  runApp(MyApp(initialRoute: initialRoute));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+  final String initialRoute;
+
+  const MyApp({
+    Key? key,
+    required this.initialRoute
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -36,7 +46,7 @@ class MyApp extends StatelessWidget {
       theme: theme(context),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: RouteGenerator.generateRoute,
-      initialRoute: RoutesPath.homeAuthPath
+      initialRoute: initialRoute
     );
   }
 }

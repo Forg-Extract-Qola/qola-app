@@ -10,13 +10,13 @@ import 'package:qola_app/theme/colors.dart';
 
 class MenuLayout extends StatelessWidget {
 
-  final Widget child;
+  final Widget? child;
   final List<Item> items;
   final List<Item> pages;
 
   const MenuLayout({
     Key? key,
-    required this.child,
+    this.child,
     this.items = const [],
     this.pages = const []
   }) : super(key: key);
