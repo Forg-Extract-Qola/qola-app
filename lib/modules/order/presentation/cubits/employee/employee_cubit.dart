@@ -9,12 +9,11 @@ import 'package:qola_app/modules/order/domain/use_cases/do_load_employees.dart';
 part 'employee_state.dart';
 
 class EmployeeCubit extends Cubit<EmployeeState> {
-
   final DoLoadEmployees _doLoadEmployees;
 
-  EmployeeCubit({required DoLoadEmployees doLoadEmployees}) :
-      _doLoadEmployees = doLoadEmployees,
-      super(const EmployeeState());
+  EmployeeCubit({required DoLoadEmployees doLoadEmployees})
+      : _doLoadEmployees = doLoadEmployees,
+        super(const EmployeeState());
 
   loadEmployees() async {
     await _loadEmployees();
@@ -23,8 +22,8 @@ class EmployeeCubit extends Cubit<EmployeeState> {
   _loadEmployees() async {
     final result = await _doLoadEmployees(NoParams());
     result.fold(
-      (l) => emit(state.copyWith(state: BlocState.error)),
-      (employees) => emit(state.copyWith(state: BlocState.success, employees: employees))
-    );
+        (l) => emit(state.copyWith(state: BlocState.error)),
+        (employees) => emit(
+            state.copyWith(state: BlocState.success, employees: employees)));
   }
 }
