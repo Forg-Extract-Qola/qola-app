@@ -1,3 +1,4 @@
+import 'package:qola_app/modules/auth/data/data_sources/session_local_data_source.dart';
 import 'package:qola_app/modules/order/data/data_sources/table_remote_data_source.dart';
 import 'package:qola_app/modules/order/data/factories/table_factory.dart';
 import 'package:qola_app/modules/order/domain/dtos/table_dto.dart';
@@ -6,10 +7,16 @@ import 'package:dartz/dartz.dart';
 import 'package:qola_app/modules/order/domain/repositories/table_repository.dart';
 
 class TableRepositoryImpl extends TableRepository {
-  final TableRemoteDataSource _tableRemoteDataSource;
 
-  TableRepositoryImpl({required TableRemoteDataSource tableRemoteDataSource})
-      : _tableRemoteDataSource = tableRemoteDataSource;
+  final TableRemoteDataSource _tableRemoteDataSource;
+  final SessionLocalDataSource _sessionLocalDataSource;
+
+  TableRepositoryImpl({
+    required TableRemoteDataSource tableRemoteDataSource,
+    required SessionLocalDataSource sessionLocalDataSource
+  }) : _tableRemoteDataSource = tableRemoteDataSource,
+      _sessionLocalDataSource = sessionLocalDataSource;
+
   @override
   Future<Either<Failure, TableDto>> deleteTable(int table) {
     // TODO: implement deleteTable
@@ -25,9 +32,8 @@ class TableRepositoryImpl extends TableRepository {
   @override
   Future<Either<Failure, List<TableDto>>> getTables() async {
     try {
-      const int restaurant = 34;
       final response =
-          await _tableRemoteDataSource.getTablesByRestaurantId(restaurant);
+          await _tableRemoteDataSource.getTablesByRestaurantId(_sessionLocalDataSource.getRestaurant() ?? 0);
       return Right(TableFactory.convertToListTableDto(response));
     } catch (e) {
       return const Left(ServerFailure());

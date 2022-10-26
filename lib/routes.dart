@@ -6,6 +6,8 @@ import 'package:qola_app/modules/order/presentation/screens/employee/employee_ad
 import 'package:qola_app/modules/order/presentation/screens/employee/employee_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/main/main_admin_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/main/main_employee_screen.dart';
+import 'package:qola_app/modules/order/presentation/screens/tables/table_add_edit_screen.dart';
+import 'package:qola_app/modules/order/presentation/screens/tables/table_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -17,6 +19,8 @@ class RouteGenerator {
       case RoutesPath.mainEmployeePath: return MaterialPageRoute(builder: (_) => const MainEmployeeScreen());
       case RoutesPath.employeeListPath: return MaterialPageRoute(builder: (_) => const EmployeeScreen());
       case RoutesPath.employeeAddEditPath: return MaterialPageRoute(builder: (_) => const EmployeeAddEditScreen());
+      case RoutesPath.tablesListPath: return MaterialPageRoute(builder: (_) => const TableScreen());
+      case RoutesPath.tableAddEditPath: return MaterialPageRoute(builder: (_) => const TableAddEditScreen());
       default: return MaterialPageRoute(builder: (_) => const HomeAuthScreen());
     }
   }
@@ -30,4 +34,6 @@ class RoutesPath {
   static const String mainEmployeePath = '/main-employee-screen';
   static const String employeeListPath = '/employee-list-screen';
   static const String employeeAddEditPath = '/employee-add-edit-screen';
+  static const String tablesListPath = '/table-list-screen';
+  static const String tableAddEditPath = '/table-add-edit-screen';
 }

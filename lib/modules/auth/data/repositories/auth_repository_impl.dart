@@ -27,8 +27,10 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await _authRemoteDataSource.login(LoginModel(email: login.email, password: login.password));
       if (response.token == null) return const Left(ServerFailure(message: errorNoTokenMessage));
+      if (response.restaurant == 0) return const Left(ServerFailure(message: errorNoRestaurantMessage));
 
       _sessionLocalDataSource.saveToken(response.token!);
+      _sessionLocalDataSource.saveRestaurant(response.restaurant!);
 
       return const Right(true);
     }

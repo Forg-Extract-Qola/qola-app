@@ -3,6 +3,7 @@ class LoginModel {
   String? password;
   String? code;
   String? token;
+  int? restaurant;
 
   LoginModel({
     this.email,
@@ -12,7 +13,8 @@ class LoginModel {
   });
 
   LoginModel.fromJson(Map<String, dynamic> json) {
-    token = json["token"];
+    token       = json["token"];
+    restaurant  = json["restaurantId"];
   }
 
   Map<String, dynamic> toJson() => {

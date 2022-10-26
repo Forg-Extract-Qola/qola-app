@@ -9,10 +9,15 @@ import 'package:qola_app/modules/auth/domain/repositories/auth_repository.dart';
 import 'package:qola_app/modules/auth/domain/use_cases/do_admin_login.dart';
 import 'package:qola_app/modules/auth/presentation/bloc/admin/admin_login_bloc.dart';
 import 'package:qola_app/modules/order/data/data_sources/employee_remote_data_source.dart';
+import 'package:qola_app/modules/order/data/data_sources/table_remote_data_source.dart';
 import 'package:qola_app/modules/order/data/resporitories/employee_repository_impl.dart';
+import 'package:qola_app/modules/order/data/resporitories/table_repository_impl.dart';
 import 'package:qola_app/modules/order/domain/repositories/employee_repository.dart';
+import 'package:qola_app/modules/order/domain/repositories/table_repository.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_employees.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_load_tables.dart';
 import 'package:qola_app/modules/order/presentation/cubits/employee/employee_cubit.dart';
+import 'package:qola_app/modules/order/presentation/cubits/table/table_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -69,17 +74,27 @@ Future<void> initAuthModule() async {
 Future<void> initOrderModule() async {
   //! Cubits
   sl.registerFactory(() => EmployeeCubit(doLoadEmployees: sl()));
+  sl.registerFactory(() => TableCubit(doLoadTables: sl()));
 
   //! Use Cases
   sl.registerLazySingleton(() => DoLoadEmployees(employeeRepository: sl()));
+  sl.registerLazySingleton(() => DoLoadTables(tableRepository: sl()));
 
   //! Repositories
   sl.registerLazySingleton<EmployeeRepository>(() => EmployeeRepositoryImpl(
     employeeRemoteDataSource: sl()
   ));
+  sl.registerLazySingleton<TableRepository>(() => TableRepositoryImpl(
+    tableRemoteDataSource: sl(),
+    sessionLocalDataSource: sl()
+  ));
 
   //! Data Sources
   sl.registerLazySingleton<EmployeeRemoteDataSource>(() => EmployeeRemoteDataSourceImpl(
+    httpProvider: sl(),
+    sessionLocalDataSource: sl()
+  ));
+  sl.registerLazySingleton<TableRemoteDataSource>(() => TableRemoteDataSourceImpl(
     httpProvider: sl(),
     sessionLocalDataSource: sl()
   ));

@@ -5,5 +5,5 @@ import 'package:qola_app/routes.dart';
 final adminItemsList = <Item>[
   Item(displayName: 'Colaboradores', icon: Icons.person_outline, route: RoutesPath.employeeListPath),
   Item(displayName: 'Platos', icon: Icons.restaurant),
-  Item(displayName: 'Mesas', icon: Icons.table_bar_sharp),
+  Item(displayName: 'Mesas', icon: Icons.table_bar_sharp, route: RoutesPath.tablesListPath),
 ];

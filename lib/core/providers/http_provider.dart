@@ -64,6 +64,21 @@ class HttpProvider {
     }
   }
 
+  Future<dynamic> delete(String apiUrl, { String? token, bool isBearer = true}) async {
+    Console.printInfo('[DELETE] $apiUrl');
+    try {
+      Map<String, String> headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (token != null) {
+        final prefix = isBearer ? 'Bearer ' : '';
+        headers['Authorization'] = '$prefix$token';
+      }
+      final response = await http.delete(Uri.parse(apiUrl), headers: headers);
+      return _returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('NO_INTERNET_CONNECTION');
+    }
+  }
+
   Future<dynamic> postMultipart(String apiUrl, { Map<String, String>? fields,
     required List<http.MultipartFile>? files, bool authenticated = false, String? token, bool isBearer = true
   }) async {

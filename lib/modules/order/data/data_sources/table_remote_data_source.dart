@@ -26,8 +26,9 @@ class TableRemoteDataSourceImpl implements TableRemoteDataSource {
   Future<TableModel> createTable(
       TableModel tableModel, int restaurantId) async {
     final response = await _httpProvider.post(
-        '$BASE_URL/table?restaurantId=$restaurantId',
-        jsonEncode(tableModel.toSaveResource()));
+      '$BASE_URL/table?restaurantId=$restaurantId',
+      jsonEncode(tableModel.toSaveResource()),
+      token: _sessionLocalDataSource.getToken());
     return TableModel.fromJson(response);
   }
 
@@ -42,8 +43,9 @@ class TableRemoteDataSourceImpl implements TableRemoteDataSource {
   Future<TableModel> updateTable(
       TableModel tableModel, int restaurantId) async {
     final response = await _httpProvider.put(
-        '$BASE_URL/table?restaurantId=$restaurantId',
-        jsonEncode(tableModel.toSaveResource()));
+      '$BASE_URL/table?restaurantId=$restaurantId',
+      jsonEncode(tableModel.toSaveResource()),
+      token: _sessionLocalDataSource.getToken());
     return TableModel.fromJson(response);
   }
 }
