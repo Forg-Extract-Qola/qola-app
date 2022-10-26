@@ -4,7 +4,7 @@ import 'package:formz/formz.dart';
 import 'package:qola_app/core/utils/messages.dart';
 import 'package:qola_app/modules/auth/presentation/bloc/admin/admin_login_bloc.dart';
 import 'package:qola_app/modules/auth/presentation/fields/email.dart';
-import 'package:qola_app/modules/auth/presentation/fields/field_required.dart';
+import 'package:qola_app/core/field/field_required.dart';
 import 'package:qola_app/routes.dart';
 import 'package:qola_app/shared/qola_buttons.dart';
 import 'package:qola_app/shared/qola_text_field.dart';
@@ -19,14 +19,18 @@ class SignInAdminEmail extends StatelessWidget {
       buildWhen: (prev, next) => prev.email != next.email,
       builder: (context, state) {
         return GenericIconFormField(
-          value: state.email.value,
-          hintText: 'Email',
-          icon: Icons.mail,
-          onChanged: (email) => context.read<AdminLoginBloc>().add(LoginEmailChanged(email)),
-          validationText: state.email.pure || state.email.error == null ? null :
-            state.email.error == EmailValidationError.empty ? fieldRequiredFormat :
-            state.email.error == EmailValidationError.format ? fieldInvalidEmail : null
-        );
+            value: state.email.value,
+            hintText: 'Email',
+            icon: Icons.mail,
+            onChanged: (email) =>
+                context.read<AdminLoginBloc>().add(LoginEmailChanged(email)),
+            validationText: state.email.pure || state.email.error == null
+                ? null
+                : state.email.error == EmailValidationError.empty
+                    ? fieldRequiredFormat
+                    : state.email.error == EmailValidationError.format
+                        ? fieldInvalidEmail
+                        : null);
       },
     );
   }
@@ -41,14 +45,18 @@ class SignInAdminPassword extends StatelessWidget {
       buildWhen: (prev, next) => prev.password != next.password,
       builder: (context, state) {
         return GenericIconFormField(
-          value: state.password.value,
-          hintText: 'Password',
-          obscureText: true,
-          icon: Icons.key,
-          onChanged: (password) => context.read<AdminLoginBloc>().add(LoginPasswordChanged(password)),
-            validationText: state.password.pure || state.password.error == null ? null :
-            state.password.error == FieldRequiredValidationError.empty ? fieldRequiredFormat : null
-        );
+            value: state.password.value,
+            hintText: 'Password',
+            obscureText: true,
+            icon: Icons.key,
+            onChanged: (password) => context
+                .read<AdminLoginBloc>()
+                .add(LoginPasswordChanged(password)),
+            validationText: state.password.pure || state.password.error == null
+                ? null
+                : state.password.error == FieldRequiredValidationError.empty
+                    ? fieldRequiredFormat
+                    : null);
       },
     );
   }
@@ -69,7 +77,6 @@ class SignInAdminForgotPassword extends StatelessWidget {
   }
 }
 
-
 class SignInSubmitButton extends StatelessWidget {
   const SignInSubmitButton({Key? key}) : super(key: key);
 
@@ -81,9 +88,14 @@ class SignInSubmitButton extends StatelessWidget {
         builder: (context, state) {
           return LargeSolidButton(
             text: 'INGRESAR',
-            onPressed: state.status == FormzStatus.valid || state.status == FormzStatus.submissionFailure ?
-                () => context.read<AdminLoginBloc>().add(const LoginSubmitted()) : null,
-            child: state.status == FormzStatus.submissionInProgress ? const CircularProgressIndicator(color: Colors.white) : null,
+            onPressed: state.status == FormzStatus.valid ||
+                    state.status == FormzStatus.submissionFailure
+                ? () =>
+                    context.read<AdminLoginBloc>().add(const LoginSubmitted())
+                : null,
+            child: state.status == FormzStatus.submissionInProgress
+                ? const CircularProgressIndicator(color: Colors.white)
+                : null,
           );
         },
       ),

@@ -7,15 +7,14 @@ import 'package:dartz/dartz.dart';
 import 'package:qola_app/modules/order/domain/repositories/table_repository.dart';
 
 class TableRepositoryImpl extends TableRepository {
-
   final TableRemoteDataSource _tableRemoteDataSource;
   final SessionLocalDataSource _sessionLocalDataSource;
 
-  TableRepositoryImpl({
-    required TableRemoteDataSource tableRemoteDataSource,
-    required SessionLocalDataSource sessionLocalDataSource
-  }) : _tableRemoteDataSource = tableRemoteDataSource,
-      _sessionLocalDataSource = sessionLocalDataSource;
+  TableRepositoryImpl(
+      {required TableRemoteDataSource tableRemoteDataSource,
+      required SessionLocalDataSource sessionLocalDataSource})
+      : _tableRemoteDataSource = tableRemoteDataSource,
+        _sessionLocalDataSource = sessionLocalDataSource;
 
   @override
   Future<Either<Failure, TableDto>> deleteTable(int table) {
@@ -32,8 +31,8 @@ class TableRepositoryImpl extends TableRepository {
   @override
   Future<Either<Failure, List<TableDto>>> getTables() async {
     try {
-      final response =
-          await _tableRemoteDataSource.getTablesByRestaurantId(_sessionLocalDataSource.getRestaurant() ?? 0);
+      final response = await _tableRemoteDataSource.getTablesByRestaurantId(
+          _sessionLocalDataSource.getRestaurant() ?? 0);
       return Right(TableFactory.convertToListTableDto(response));
     } catch (e) {
       return const Left(ServerFailure());
@@ -41,11 +40,11 @@ class TableRepositoryImpl extends TableRepository {
   }
 
   @override
-  Future<Either<Failure, TableDto>> saveTable(
-      TableDto table, int restaurantId) async {
+  Future<Either<Failure, TableDto>> saveTable(TableDto table) async {
     try {
       final response = await _tableRemoteDataSource.createTable(
-          TableFactory.convertToTableModel(table), restaurantId);
+          TableFactory.convertToTableModel(table),
+          _sessionLocalDataSource.getRestaurant() ?? 0);
       return Right(TableFactory.convertToTableDto(response));
     } catch (e) {
       return const Left(ServerFailure());
