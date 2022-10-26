@@ -15,18 +15,26 @@ class TableBloc extends Bloc<TableEvent, TableState> {
   TableBloc({required DoCreateTables doCreateTables})
       : _doCreateTables = doCreateTables,
         super(const TableState()) {
+    on<TableLoaded>(_onTableLoaded);
     on<TableEventChanged>(_onTableEventChanged);
-    on<TableEventSubmitted>(_onTableEventSubmitted);
+    on<TableSubmitted>(_onTableEventSubmitted);
+  }
+
+  void _onTableLoaded(TableLoaded event, Emitter<TableState> emit) {
+    if (event.table == null) return;
+    final tableEvent = FieldRequired.dirty(event.table!.name!);
+    emit(state.copyWith(
+        table: tableEvent, status: Formz.validate([tableEvent])));
   }
 
   void _onTableEventChanged(TableEventChanged event, Emitter<TableState> emit) {
-    final tableEvent = FieldRequired.dirty(event.tableEvent);
+    final tableEvent = FieldRequired.dirty(event.name);
     emit(state.copyWith(
         table: tableEvent, status: Formz.validate([tableEvent])));
   }
 
   void _onTableEventSubmitted(
-      TableEventSubmitted event, Emitter<TableState> emit) async {
+      TableSubmitted event, Emitter<TableState> emit) async {
     if (!state.status.isValidated) return;
 
     emit(state.copyWith(status: FormzStatus.submissionInProgress));

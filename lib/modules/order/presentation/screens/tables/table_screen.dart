@@ -17,18 +17,18 @@ class TableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomBlankWithTitlePage(
-      title: 'Mesas',
-      action: TextIconPrimaryButton(
-          text: 'Nuevo',
-          onPressed: () {},
-          icon: Icons.add
-      ),
-      child: BlocProvider(
-        create: (context) =>
-        sl<TableCubit>()
-          ..loadTables(),
-        child: const TableContent(),
-      )
+        title: 'Mesas',
+        //action: TextIconPrimaryButton(
+        //    text: 'Nuevo',
+        //    onPressed: () {},
+        //    icon: Icons.add
+        //),
+        child: BlocProvider(
+          create: (context) =>
+          sl<TableCubit>()
+            ..loadTables(),
+          child: const TableContent(),
+        )
     );
   }
 }
@@ -55,10 +55,13 @@ class TableAddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LargeAccentButton(
-      text: 'Nueva mesa',
-      onPressed: () =>
-          Navigator.pushNamed(context, RoutesPath.tableAddEditPath),
+    return BlocBuilder<TableCubit, TableState>(
+      builder: (context, state) {
+        return LargeAccentButton(
+          text: 'Nueva mesa',
+          onPressed: () => context.read<TableCubit>().openAddEditTable(context),
+        );
+      },
     );
   }
 }
@@ -108,11 +111,11 @@ class TableCardElement extends StatelessWidget {
     return CustomImageCard(
       image: 'assets/images/icons/table.png',
       title: table.name ?? '',
-      description: table.isOccupied == true ?  'OCUPADO' : 'LIBRE',
+      description: table.isOccupied == true ? 'OCUPADO' : 'LIBRE',
       action: VerticalAlignment(
         child: IconButton(
           icon: const Icon(Icons.edit_rounded, size: 20.0),
-          onPressed: () {},
+          onPressed: () => context.read<TableCubit>().openAddEditTable(context, table: table),
           color: Colors.black45,
           splashRadius: 25.0,
         ),

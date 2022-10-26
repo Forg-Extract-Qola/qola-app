@@ -4,7 +4,7 @@ import 'package:qola_app/core/usecases/usecase.dart';
 import 'package:qola_app/modules/order/domain/dtos/table_dto.dart';
 import 'package:qola_app/modules/order/domain/repositories/table_repository.dart';
 
-class DoLoadTables extends UseCase<List<TableDto>, NoParams> {
+class DoLoadTables implements UseCase<List<TableDto>, NoParams> {
   final TableRepository _tableRepository;
 
   DoLoadTables({required TableRepository tableRepository})

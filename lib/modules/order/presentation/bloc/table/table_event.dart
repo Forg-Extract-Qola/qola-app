@@ -8,15 +8,24 @@ abstract class TableEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class TableEventChanged extends TableEvent {
-  final String tableEvent;
+class TableLoaded extends TableEvent {
+  final TableDto? table;
 
-  const TableEventChanged(this.tableEvent);
+  const TableLoaded(this.table);
 
   @override
-  List<Object?> get props => [tableEvent];
+  List<Object?> get props => [table];
 }
 
-class TableEventSubmitted extends TableEvent {
-  const TableEventSubmitted();
+class TableEventChanged extends TableEvent {
+  final String name;
+
+  const TableEventChanged(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class TableSubmitted extends TableEvent {
+  const TableSubmitted();
 }

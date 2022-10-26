@@ -18,9 +18,9 @@ class RouteGenerator {
       case RoutesPath.mainAdminPath: return MaterialPageRoute(builder: (_) => const MainAdminScreen());
       case RoutesPath.mainEmployeePath: return MaterialPageRoute(builder: (_) => const MainEmployeeScreen());
       case RoutesPath.employeeListPath: return MaterialPageRoute(builder: (_) => const EmployeeScreen());
-      case RoutesPath.employeeAddEditPath: return MaterialPageRoute(builder: (_) => const EmployeeAddEditScreen());
+      case RoutesPath.employeeAddEditPath: return MaterialPageRoute(builder: (_) => const EmployeeAddEditScreen(), settings: settings);
       case RoutesPath.tablesListPath: return MaterialPageRoute(builder: (_) => const TableScreen());
-      case RoutesPath.tableAddEditPath: return MaterialPageRoute(builder: (_) => const TableAddEditScreen());
+      case RoutesPath.tableAddEditPath: return MaterialPageRoute(builder: (_) => const TableAddEditScreen(), settings: settings);
       default: return MaterialPageRoute(builder: (_) => const HomeAuthScreen());
     }
   }
