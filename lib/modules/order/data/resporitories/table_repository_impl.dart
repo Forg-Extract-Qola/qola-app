@@ -56,10 +56,10 @@ class TableRepositoryImpl extends TableRepository {
       TableDto table, int tableId) async {
     try {
       final response = await _tableRemoteDataSource.updateTable(
-          TableFactory.convertToTableModel(table), tableId);
+          TableFactory.convertToTableModel(table));
       return Right(TableFactory.convertToTableDto(response));
     } catch (e) {
-      return const Left(ServerFailure());
+      return const Left(ServerFailure(message: 'Error while update table'));
     }
   }
 }

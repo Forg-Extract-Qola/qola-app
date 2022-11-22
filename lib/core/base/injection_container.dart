@@ -17,6 +17,7 @@ import 'package:qola_app/modules/order/domain/repositories/table_repository.dart
 import 'package:qola_app/modules/order/domain/use_cases/do_create_table.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_employees.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_tables.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_upload_table.dart';
 import 'package:qola_app/modules/order/presentation/bloc/table/table_bloc.dart';
 import 'package:qola_app/modules/order/presentation/cubits/employee/employee_cubit.dart';
 import 'package:qola_app/modules/order/presentation/cubits/table/table_cubit.dart';
@@ -70,7 +71,10 @@ Future<void> initAuthModule() async {
 
 Future<void> initOrderModule() async {
   //! Blocs
-  sl.registerFactory(() => TableBloc(doCreateTables: sl()));
+  sl.registerFactory(() => TableBloc(
+    doCreateTable: sl(),
+    doUpdateTable: sl()
+  ));
   //! Cubits
   sl.registerFactory(() => EmployeeCubit(doLoadEmployees: sl()));
   sl.registerFactory(() => TableCubit(doLoadTables: sl()));
@@ -79,6 +83,7 @@ Future<void> initOrderModule() async {
   sl.registerLazySingleton(() => DoLoadEmployees(employeeRepository: sl()));
   sl.registerLazySingleton(() => DoLoadTables(tableRepository: sl()));
   sl.registerLazySingleton(() => DoCreateTables(tableRepository: sl()));
+  sl.registerLazySingleton(() => DoUpdateTables(tableRepository: sl()));
 
   //! Repositories
   sl.registerLazySingleton<EmployeeRepository>(

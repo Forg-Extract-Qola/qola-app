@@ -8,7 +8,7 @@ import 'package:qola_app/modules/auth/data/data_sources/session_local_data_sourc
 abstract class TableRemoteDataSource {
   Future<List<TableModel>> getTablesByRestaurantId(int restaurantId);
   Future<TableModel> createTable(TableModel tableModel, int restaurantId);
-  Future<TableModel> updateTable(TableModel tableModel, int restaurantId);
+  Future<TableModel> updateTable(TableModel tableModel);
   //Future<void> deleteTable(int tableId, int restaurantId);
 }
 
@@ -40,10 +40,9 @@ class TableRemoteDataSourceImpl implements TableRemoteDataSource {
   }
 
   @override
-  Future<TableModel> updateTable(
-      TableModel tableModel, int restaurantId) async {
+  Future<TableModel> updateTable(TableModel tableModel) async {
     final response = await _httpProvider.put(
-      '$BASE_URL/table?restaurantId=$restaurantId',
+      '$BASE_URL/table/${tableModel.id}',
       jsonEncode(tableModel.toSaveResource()),
       token: _sessionLocalDataSource.getToken());
     return TableModel.fromJson(response);

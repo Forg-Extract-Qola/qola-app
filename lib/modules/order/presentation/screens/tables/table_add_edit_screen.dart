@@ -21,14 +21,15 @@ class TableAddEditScreen extends StatelessWidget {
       title: 'Mesas',
       child: BlocProvider<TableBloc>(
         create: (context) => sl<TableBloc>()..add(TableLoaded(table)),
-        child: const TableAddEditForm(),
+        child: TableAddEditForm(table: table),
       ),
     );
   }
 }
 
 class TableAddEditForm extends StatelessWidget {
-  const TableAddEditForm({Key? key}) : super(key: key);
+  final TableDto? table;
+  const TableAddEditForm({Key? key, this.table}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +37,7 @@ class TableAddEditForm extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         child: BlocListener<TableBloc, TableState>(
           listener: resolveResponse,
-          child: Column(
-              children: const [
-                CustomText(
-                  'Registro de una nueva mesa', color: primaryColor,
-                  size: 20.0,),
-                SizedBox(height: 40.0),
-                TableNameField(),
-                TableSubmitButton()
-              ]
-          ),
+          child: TableFormList(table: table),
         )
     );
   }
@@ -59,5 +51,29 @@ class TableAddEditForm extends StatelessWidget {
         content: Text(state.error ?? ''),
       ));
     }
+  }
+}
+
+class TableFormList extends StatelessWidget {
+  final TableDto? table;
+  const TableFormList({Key? key, this.table}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    final title = table == null ? 'Registro de una nueva mesa' : 'Actualización de la mesa';
+
+    return BlocBuilder<TableBloc, TableState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            CustomText(title, color: primaryColor, size: 20.0),
+            const SizedBox(height: 40.0),
+            if (state.editable) const TableNameField(),
+            const TableSubmitButton()
+          ]
+        );
+      },
+    );
   }
 }

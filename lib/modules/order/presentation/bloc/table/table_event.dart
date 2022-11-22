@@ -26,6 +26,10 @@ class TableEventChanged extends TableEvent {
   List<Object?> get props => [name];
 }
 
+class TableEnableEdit extends TableEvent {
+  const TableEnableEdit();
+}
+
 class TableSubmitted extends TableEvent {
   const TableSubmitted();
 }
