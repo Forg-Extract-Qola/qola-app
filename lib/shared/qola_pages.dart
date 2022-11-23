@@ -168,3 +168,20 @@ class CustomBlankWithTitlePage extends StatelessWidget {
     );
   }
 }
+
+class CustomMainPage extends StatelessWidget {
+
+  final Widget child;
+
+  const CustomMainPage({
+    Key? key,
+    required this.child
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: child
+    );
+  }
+}

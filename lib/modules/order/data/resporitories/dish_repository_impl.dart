@@ -25,7 +25,7 @@ class DishRepositoryImpl extends DishRepository {
   Future<Either<Failure, List<DishDto>>> getAllDishes() async {
     try {
       final response = await _dishRemoteDataSource.getDishesByRestaurantId(
-          _sessionLocalDataSource.getRestaurant() ?? 0);
+          _sessionLocalDataSource.getRestaurant());
       return Right(DishFactory.convertToListDishDto(response));
     } catch (e) {
       return const Left(ServerFailure());
@@ -54,7 +54,7 @@ class DishRepositoryImpl extends DishRepository {
     try {
       final response = await _dishRemoteDataSource.saveDish(
           DishFactory.convertToDishModel(dish),
-          _sessionLocalDataSource.getRestaurant() ?? 0);
+          _sessionLocalDataSource.getRestaurant());
       return Right(DishFactory.convertToDishDto(response));
     } catch (e) {
       return const Left(ServerFailure());

@@ -31,7 +31,7 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
 
   @override
   Future<List<OrderModel>> getOrders() async {
-    final response = await _httpProvider.get('$BASE_URL/order');
+    final response = await _httpProvider.get('$BASE_URL/order', token: _sessionLocalDataSource.getToken());
     return List<OrderModel>.from(response.map((x) => OrderModel.fromJson(x)));
   }
 
