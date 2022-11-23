@@ -84,7 +84,7 @@ class DishCardElement extends StatelessWidget {
       action: VerticalAlignment(
         child: IconButton(
           icon: const Icon(Icons.expand_more, size: 20.0),
-          onPressed: () => context.read<DishCubit>().openAddEditDish(context, dish: dish),
+          onPressed: () => context.read<DishCubit>().openInformationDish(context, dish: dish),
           color: Colors.black45,
           splashRadius: 25.0,
         ),

@@ -26,6 +26,7 @@ import 'package:qola_app/modules/order/domain/repositories/employee_repository.d
 import 'package:qola_app/modules/order/domain/repositories/order_repository.dart';
 import 'package:qola_app/modules/order/domain/repositories/table_repository.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_add_order_dish.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_available_tables.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_create_dish.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_create_table.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_dishes.dart';
@@ -110,13 +111,14 @@ Future<void> initOrderModule() async {
   ));
   //! Cubits
   sl.registerFactory(() => EmployeeCubit(doLoadEmployees: sl()));
-  sl.registerFactory(() => TableCubit(doLoadTables: sl()));
+  sl.registerFactory(() => TableCubit(doLoadTables: sl(), doLoadAvailableTables: sl()));
   sl.registerFactory(() => OrderCubit(doLoadOrders: sl()));
   sl.registerFactory(() => DishCubit(doLoadDishes: sl()));
 
   //! Use Cases
   sl.registerLazySingleton(() => DoLoadEmployees(employeeRepository: sl()));
   sl.registerLazySingleton(() => DoLoadTables(tableRepository: sl()));
+  sl.registerLazySingleton(() => DoLoadAvailableTables(tableRepository: sl()));
   sl.registerLazySingleton(() => DoCreateTables(tableRepository: sl()));
   sl.registerLazySingleton(() => DoUpdateTables(tableRepository: sl()));
   sl.registerLazySingleton(() => DoLoadOrders(orderRepository: sl()));

@@ -17,11 +17,6 @@ class TableScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomBlankWithTitlePage(
         title: 'Mesas',
-        //action: TextIconPrimaryButton(
-        //    text: 'Nuevo',
-        //    onPressed: () {},
-        //    icon: Icons.add
-        //),
         child: BlocProvider(
           create: (context) =>
           sl<TableCubit>()

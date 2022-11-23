@@ -6,6 +6,7 @@ import 'package:qola_app/modules/order/data/models/table_model.dart';
 import 'package:qola_app/modules/auth/data/data_sources/session_local_data_source.dart';
 
 abstract class TableRemoteDataSource {
+  Future<List<TableModel>> getTablesAvailable(int restaurantId);
   Future<List<TableModel>> getTablesByRestaurantId(int restaurantId);
   Future<TableModel> createTable(TableModel tableModel, int restaurantId);
   Future<TableModel> updateTable(TableModel tableModel);
@@ -45,5 +46,12 @@ class TableRemoteDataSourceImpl implements TableRemoteDataSource {
       jsonEncode(tableModel.toSaveResource()),
       token: _sessionLocalDataSource.getToken());
     return TableModel.fromJson(response);
+  }
+
+  @override
+  Future<List<TableModel>> getTablesAvailable(int restaurantId) async {
+    final response = await _httpProvider.get(
+        '$BASE_URL/table/available/$restaurantId');
+    return List<TableModel>.from(response.map((x) => TableModel.fromJson(x)));
   }
 }
