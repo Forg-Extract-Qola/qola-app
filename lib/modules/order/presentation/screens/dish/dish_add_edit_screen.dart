@@ -75,7 +75,6 @@ class DishFormList extends StatelessWidget {
             if (state.editable) const DishImageField(),
             if (state.editable) const DishCategoryField(),
             if (state.editable) const DishPriceField(),
-
             const DishSubmitButton()
           ]
         );
