@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:qola_app/theme/theme.dart';
 class GenericFormField extends StatelessWidget {
 
   final String? value;
+  final double? valueNumber;
   final String? hintText;
   final String? validationText;
   final String? titleText;
@@ -27,6 +29,7 @@ class GenericFormField extends StatelessWidget {
     Key? key,
     this.value,
     this.hintText,
+    this.valueNumber,
     this.validationText,
     this.titleText,
     this.onChanged,

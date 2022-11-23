@@ -7,7 +7,7 @@ class DishState extends Equatable {
   final FieldRequired description;
   final FieldRequired image;
   final FieldRequired categoryDish;
-  final FieldRequired price;
+  final FieldRequiredDouble price;
   final String? error;
   final bool editable;
   final DishDto? dish;
@@ -18,7 +18,7 @@ class DishState extends Equatable {
     this.description = const FieldRequired.pure(),
     this.image = const FieldRequired.pure(),
     this.categoryDish = const FieldRequired.pure(),
-    this.price = const FieldRequired.pure(),
+    this.price = const FieldRequiredDouble.pure(),
     this.error,
     this.editable = false,
     this.dish
@@ -30,7 +30,7 @@ class DishState extends Equatable {
     FieldRequired? description,
     FieldRequired? image,
     FieldRequired? categoryDish,
-    FieldRequired? price,
+    FieldRequiredDouble? price,
     String? error,
     bool? editable,
     DishDto? dish
