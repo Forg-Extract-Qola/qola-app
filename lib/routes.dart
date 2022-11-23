@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:qola_app/modules/auth/presentation/screens/admin/sign_in_admin_screen.dart';
 import 'package:qola_app/modules/auth/presentation/screens/home_auth_screen.dart';
+import 'package:qola_app/modules/order/presentation/screens/dish/dish_add_edit_screen.dart';
+import 'package:qola_app/modules/order/presentation/screens/dish/dish_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/employee/employee_add_edit_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/employee/employee_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/main/main_admin_screen.dart';
@@ -21,6 +23,8 @@ class RouteGenerator {
       case RoutesPath.employeeAddEditPath: return MaterialPageRoute(builder: (_) => const EmployeeAddEditScreen(), settings: settings);
       case RoutesPath.tablesListPath: return MaterialPageRoute(builder: (_) => const TableScreen());
       case RoutesPath.tableAddEditPath: return MaterialPageRoute(builder: (_) => const TableAddEditScreen(), settings: settings);
+      case RoutesPath.dishListPath: return MaterialPageRoute(builder: (_) => const DishScreen());
+      case RoutesPath.dishAddEditPath: return MaterialPageRoute(builder: (_) => const DishAddEditScreen(), settings: settings);
       default: return MaterialPageRoute(builder: (_) => const HomeAuthScreen());
     }
   }
@@ -36,4 +40,6 @@ class RoutesPath {
   static const String employeeAddEditPath = '/employee-add-edit-screen';
   static const String tablesListPath = '/table-list-screen';
   static const String tableAddEditPath = '/table-add-edit-screen';
+  static const String dishListPath = '/dish-list-screen';
+  static const String dishAddEditPath = '/dish-add-edit-screen';
 }

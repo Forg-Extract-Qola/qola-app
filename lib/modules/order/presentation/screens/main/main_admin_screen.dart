@@ -4,6 +4,7 @@ import 'package:qola_app/core/base/injection_container.dart';
 import 'package:qola_app/core/utils/menu.dart';
 import 'package:qola_app/layouts/menu/menu_item.dart';
 import 'package:qola_app/layouts/menu/menu_layout.dart';
+import 'package:qola_app/modules/order/presentation/cubits/dish/dish_cubit.dart';
 import 'package:qola_app/modules/order/presentation/cubits/order/order_cubit.dart';
 import 'package:qola_app/modules/order/presentation/screens/main/pages/dish_page.dart';
 import 'package:qola_app/modules/order/presentation/screens/main/pages/home_page.dart';
@@ -19,6 +20,9 @@ class MainAdminScreen extends StatelessWidget {
         BlocProvider<OrderCubit>(
           create: (BuildContext context) => sl<OrderCubit>()..loadOrders(),
         ),
+        BlocProvider<DishCubit>(
+          create: (context) => sl<DishCubit>()..loadDishes()
+        )
       ],
       child: MenuLayout(
         items: adminItemsList,

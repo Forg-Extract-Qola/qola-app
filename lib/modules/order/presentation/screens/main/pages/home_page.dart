@@ -13,81 +13,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomMainPage(
-      child: OrderContent(),
+    return CustomMainPage(
+      child: Container(),
     );
   }
 }
 
-class OrderContent extends StatelessWidget {
-  const OrderContent({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        children: const [
-          OrderList()
-        ],
-      ),
-    );
-  }
-}
-
-class OrderList extends StatelessWidget {
-  const OrderList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<OrderCubit, OrderState>(
-      builder: (context, state) {
-        if (state.state == BlocState.loading) {
-          return const Padding(
-            padding: EdgeInsets.only(top: 40.0),
-            child: CircularProgressIndicator(color: primaryColor),
-          );
-        }
-
-        final orders = state.orders;
-        return ListView.builder(
-            itemCount: orders.length,
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            itemBuilder: (context, index) {
-              return OrderCardElement(
-                order: orders[index],
-              );
-            }
-        );
-      },
-    );
-  }
-}
-
-class OrderCardElement extends StatelessWidget {
-
-  final OrderDto order;
-
-  const OrderCardElement({
-    Key? key,
-    required this.order,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomImageCard(
-      image: 'assets/images/icons/table.png',
-      title: 'Orden N° ${order.id}',
-      description: 'Atiende: ${order.employee?.name}',
-      action: VerticalAlignment(
-        child: IconButton(
-          icon: const Icon(Icons.arrow_forward_ios, size: 20.0),
-          onPressed: () {},
-          color: Colors.black45,
-          splashRadius: 25.0,
-        ),
-      ),
-    );
-  }
-}

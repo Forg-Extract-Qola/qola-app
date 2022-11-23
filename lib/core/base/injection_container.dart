@@ -25,12 +25,22 @@ import 'package:qola_app/modules/order/domain/repositories/dish_repository.dart'
 import 'package:qola_app/modules/order/domain/repositories/employee_repository.dart';
 import 'package:qola_app/modules/order/domain/repositories/order_repository.dart';
 import 'package:qola_app/modules/order/domain/repositories/table_repository.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_add_order_dish.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_create_dish.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_create_table.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_load_dishes.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_employees.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_load_order.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_orders.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_tables.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_remove_order_dish.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_save_order.dart';
+import 'package:qola_app/modules/order/domain/use_cases/do_upload_dish.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_upload_table.dart';
+import 'package:qola_app/modules/order/presentation/bloc/dish/dish_bloc.dart';
+import 'package:qola_app/modules/order/presentation/bloc/order/order_bloc.dart';
 import 'package:qola_app/modules/order/presentation/bloc/table/table_bloc.dart';
+import 'package:qola_app/modules/order/presentation/cubits/dish/dish_cubit.dart';
 import 'package:qola_app/modules/order/presentation/cubits/employee/employee_cubit.dart';
 import 'package:qola_app/modules/order/presentation/cubits/order/order_cubit.dart';
 import 'package:qola_app/modules/order/presentation/cubits/table/table_cubit.dart';
@@ -87,10 +97,21 @@ Future<void> initOrderModule() async {
     doCreateTable: sl(),
     doUpdateTable: sl()
   ));
+  sl.registerFactory(() => DishBloc(
+    doCreateDish: sl(),
+    doUpdateDish: sl()
+  ));
+  sl.registerFactory(() => OrderBloc(
+    doSaveOrder: sl(),
+    doLoadOrder: sl(),
+    doAddOrderDish: sl(),
+    doRemoveOrderDish: sl()
+  ));
   //! Cubits
   sl.registerFactory(() => EmployeeCubit(doLoadEmployees: sl()));
   sl.registerFactory(() => TableCubit(doLoadTables: sl()));
   sl.registerFactory(() => OrderCubit(doLoadOrders: sl()));
+  sl.registerFactory(() => DishCubit(doLoadDishes: sl()));
 
   //! Use Cases
   sl.registerLazySingleton(() => DoLoadEmployees(employeeRepository: sl()));
@@ -98,6 +119,13 @@ Future<void> initOrderModule() async {
   sl.registerLazySingleton(() => DoCreateTables(tableRepository: sl()));
   sl.registerLazySingleton(() => DoUpdateTables(tableRepository: sl()));
   sl.registerLazySingleton(() => DoLoadOrders(orderRepository: sl()));
+  sl.registerLazySingleton(() => DoLoadDishes(dishRepository: sl()));
+  sl.registerLazySingleton(() => DoCreateDishes(dishRepository: sl()));
+  sl.registerLazySingleton(() => DoUpdateDishes(dishRepository: sl()));
+  sl.registerLazySingleton(() => DoSaveOrder(orderRepository: sl()));
+  sl.registerLazySingleton(() => DoLoadOrder(orderRepository: sl()));
+  sl.registerLazySingleton(() => DoAddOrderDish(orderRepository: sl()));
+  sl.registerLazySingleton(() => DoRemoveOrderDish(orderRepository: sl()));
 
   //! Repositories
   sl.registerLazySingleton<EmployeeRepository>(

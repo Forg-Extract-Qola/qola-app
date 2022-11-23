@@ -4,7 +4,6 @@ import 'package:qola_app/core/base/injection_container.dart';
 import 'package:qola_app/core/bloc/bloc_state.dart';
 import 'package:qola_app/modules/order/domain/dtos/table_dto.dart';
 import 'package:qola_app/modules/order/presentation/cubits/table/table_cubit.dart';
-import 'package:qola_app/routes.dart';
 import 'package:qola_app/shared/qola_alignments.dart';
 import 'package:qola_app/shared/qola_buttons.dart';
 import 'package:qola_app/shared/qola_card.dart';
