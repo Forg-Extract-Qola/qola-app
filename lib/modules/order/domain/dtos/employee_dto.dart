@@ -10,24 +10,4 @@ class EmployeeDto {
     this.name,
     this.charge
   });
-
-  void changeEmployee1() {
-
-  }
-
-  void changeEmployee2() {
-
-  }
-
-  void changeEmployee3() {
-
-  }
-
-  void changeEmployee4() {
-
-  }
-
-  int getEmployeeId() {
-    return 0;
-  }
 }
