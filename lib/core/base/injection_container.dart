@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:qola_app/core/data/box_repository.dart';
 import 'package:qola_app/core/providers/http_provider.dart';
 import 'package:qola_app/core/providers/preferences_provider.dart';
 import 'package:qola_app/layouts/menu/cubits/menu_bar_cubit.dart';
@@ -8,11 +9,21 @@ import 'package:qola_app/modules/auth/data/repositories/auth_repository_impl.dar
 import 'package:qola_app/modules/auth/domain/repositories/auth_repository.dart';
 import 'package:qola_app/modules/auth/domain/use_cases/do_admin_login.dart';
 import 'package:qola_app/modules/auth/presentation/bloc/admin/admin_login_bloc.dart';
+import 'package:qola_app/modules/order/data/data_sources/dish_remote_data_source.dart';
+import 'package:qola_app/modules/order/data/data_sources/employee_local_data_source.dart';
 import 'package:qola_app/modules/order/data/data_sources/employee_remote_data_source.dart';
+import 'package:qola_app/modules/order/data/data_sources/order_remote_data_source.dart';
+import 'package:qola_app/modules/order/data/data_sources/table_local_data_source.dart';
 import 'package:qola_app/modules/order/data/data_sources/table_remote_data_source.dart';
+import 'package:qola_app/modules/order/data/resporitories/dish_repository_impl.dart';
 import 'package:qola_app/modules/order/data/resporitories/employee_repository_impl.dart';
+import 'package:qola_app/modules/order/data/resporitories/order_repository_impl.dart';
 import 'package:qola_app/modules/order/data/resporitories/table_repository_impl.dart';
+import 'package:qola_app/modules/order/domain/entities/employee_entity.dart';
+import 'package:qola_app/modules/order/domain/entities/table_entity.dart';
+import 'package:qola_app/modules/order/domain/repositories/dish_repository.dart';
 import 'package:qola_app/modules/order/domain/repositories/employee_repository.dart';
+import 'package:qola_app/modules/order/domain/repositories/order_repository.dart';
 import 'package:qola_app/modules/order/domain/repositories/table_repository.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_create_table.dart';
 import 'package:qola_app/modules/order/domain/use_cases/do_load_employees.dart';
@@ -29,7 +40,6 @@ Future<void> init() async {
   await initLayouts();
   await initAuthModule();
   await initOrderModule();
-  await initBoxRepositories();
 
   //! Core
   sl.registerLazySingleton(() => HttpProvider());
@@ -87,9 +97,29 @@ Future<void> initOrderModule() async {
 
   //! Repositories
   sl.registerLazySingleton<EmployeeRepository>(
-      () => EmployeeRepositoryImpl(employeeRemoteDataSource: sl()));
-  sl.registerLazySingleton<TableRepository>(() => TableRepositoryImpl(
-      tableRemoteDataSource: sl(), sessionLocalDataSource: sl()));
+      () => EmployeeRepositoryImpl(
+        employeeRemoteDataSource: sl(),
+        employeeLocalDataSource: sl()
+      ));
+  sl.registerLazySingleton<TableRepository>(() =>
+      TableRepositoryImpl(
+          tableRemoteDataSource: sl(),
+          tableLocalDataSource: sl(),
+          sessionLocalDataSource: sl()
+      ));
+  sl.registerLazySingleton<DishRepository>(() =>
+      DishRepositoryImpl(
+          dishRemoteDataSource: sl(),
+          sessionLocalDataSource: sl()
+      ));
+  sl.registerLazySingleton<OrderRepository>(() =>
+      OrderRepositoryImpl(
+          orderRemoteDataSource: sl(),
+          employeeRemoteDataSource: sl(),
+          tableRemoteDataSource: sl(),
+          sessionLocalDataSource: sl(),
+          dishRemoteDataSource: sl()
+      ));
 
   //! Data Sources
   sl.registerLazySingleton<EmployeeRemoteDataSource>(() =>
@@ -98,8 +128,25 @@ Future<void> initOrderModule() async {
   sl.registerLazySingleton<TableRemoteDataSource>(() =>
       TableRemoteDataSourceImpl(
           httpProvider: sl(), sessionLocalDataSource: sl()));
+  sl.registerLazySingleton<EmployeeLocalDataSource>(() =>
+      EmployeeLocalDataSourceImpl(
+          employeeRepository: sl()));
+  sl.registerLazySingleton<TableLocalDataSource>(() =>
+      TableLocalDataSourceImpl(
+          tableRepository: sl()));
+  sl.registerLazySingleton<DishRemoteDataSource>(() =>
+      DishRemoteDataSourceImpl(
+          httpProvider: sl(),
+          sessionLocalDataSource: sl()));
+  sl.registerLazySingleton<OrderRemoteDataSource>(() =>
+      OrderRemoteDataSourceImpl(
+          httpProvider: sl(),
+          sessionLocalDataSource: sl()));
+
 }
 
 Future<void> initBoxRepositories() async {
   //! Repositories
+  sl.registerLazySingleton<BoxRepository<EmployeeEntity>>(() => BoxRepositoryImpl<EmployeeEntity>());
+  sl.registerLazySingleton<BoxRepository<TableEntity>>(() => BoxRepositoryImpl<TableEntity>());
 }

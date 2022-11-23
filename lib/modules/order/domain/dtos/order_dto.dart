@@ -6,12 +6,12 @@ class OrderDto {
   int? id;
   String? status;
   String? notes;
-  int? total;
+  double? total;
   int? tableId;
   int? waiterId;
   TableDto? table;
   EmployeeDto? employee;
-  List<OrderDishDto>? orderDish;
+  List<OrderDishDto>? orderDishes;
 
   OrderDto({
     this.id,
@@ -22,6 +22,6 @@ class OrderDto {
     this.waiterId,
     this.table,
     this.employee,
-    this.orderDish
+    this.orderDishes
   });
 }

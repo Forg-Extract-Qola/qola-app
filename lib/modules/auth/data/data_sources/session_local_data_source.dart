@@ -6,7 +6,7 @@ abstract class SessionLocalDataSource {
   void saveToken(String token);
   String? getToken();
   void saveRestaurant(int restaurant);
-  int? getRestaurant();
+  int getRestaurant();
 }
 
 class SessionLocalDataSourceImpl implements SessionLocalDataSource {
@@ -31,6 +31,6 @@ class SessionLocalDataSourceImpl implements SessionLocalDataSource {
   void saveRestaurant(int restaurant) => _appPreferences.setIntValue(RESTAURANT, restaurant);
 
   @override
-  int? getRestaurant() => _appPreferences.getIntValue(RESTAURANT);
+  int getRestaurant() => _appPreferences.getIntValue(RESTAURANT) ?? 0;
 
 }

@@ -1,18 +1,19 @@
 import 'dart:io';
 
+import 'package:qola_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qola_app/core/base/injection_container.dart' as di;
-import 'package:qola_app/core/base/injection_container.dart';
-import 'package:qola_app/core/data/database.dart';
-import 'package:qola_app/modules/auth/domain/repositories/auth_repository.dart';
-import 'package:qola_app/routes.dart';
 import 'package:qola_app/theme/theme.dart';
+import 'package:qola_app/main.reflectable.dart';
+import 'package:qola_app/core/data/database.dart';
+import 'package:qola_app/core/base/injection_container.dart';
+import 'package:qola_app/core/base/injection_container.dart' as di;
+import 'package:qola_app/modules/auth/domain/repositories/auth_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //initializeReflectable();
+  initializeReflectable();
 
   await di.init();
   await Database.db.initDB();

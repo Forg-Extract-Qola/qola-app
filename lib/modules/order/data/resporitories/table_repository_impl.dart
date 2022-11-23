@@ -1,4 +1,5 @@
 import 'package:qola_app/modules/auth/data/data_sources/session_local_data_source.dart';
+import 'package:qola_app/modules/order/data/data_sources/table_local_data_source.dart';
 import 'package:qola_app/modules/order/data/data_sources/table_remote_data_source.dart';
 import 'package:qola_app/modules/order/data/factories/table_factory.dart';
 import 'package:qola_app/modules/order/domain/dtos/table_dto.dart';
@@ -8,12 +9,16 @@ import 'package:qola_app/modules/order/domain/repositories/table_repository.dart
 
 class TableRepositoryImpl extends TableRepository {
   final TableRemoteDataSource _tableRemoteDataSource;
+  final TableLocalDataSource _tableLocalDataSource;
   final SessionLocalDataSource _sessionLocalDataSource;
 
-  TableRepositoryImpl(
-      {required TableRemoteDataSource tableRemoteDataSource,
-      required SessionLocalDataSource sessionLocalDataSource})
+  TableRepositoryImpl({
+    required TableRemoteDataSource tableRemoteDataSource,
+    required TableLocalDataSource tableLocalDataSource,
+    required SessionLocalDataSource sessionLocalDataSource
+  })
       : _tableRemoteDataSource = tableRemoteDataSource,
+        _tableLocalDataSource = tableLocalDataSource,
         _sessionLocalDataSource = sessionLocalDataSource;
 
   @override
@@ -33,6 +38,10 @@ class TableRepositoryImpl extends TableRepository {
     try {
       final response = await _tableRemoteDataSource.getTablesByRestaurantId(
           _sessionLocalDataSource.getRestaurant() ?? 0);
+
+      // save tables to database
+      // _tableLocalDataSource.saveTables(TableFactory.convertToListTableEntity(response));
+
       return Right(TableFactory.convertToListTableDto(response));
     } catch (e) {
       return const Left(ServerFailure());
