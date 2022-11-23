@@ -71,4 +71,15 @@ class TableRepositoryImpl extends TableRepository {
       return const Left(ServerFailure(message: 'Error while update table'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<TableDto>>> getTablesAvailable() async {
+    try {
+      final response = await _tableRemoteDataSource.getTablesByRestaurantId(
+          _sessionLocalDataSource.getRestaurant());
+      return Right(TableFactory.convertToListTableDto(response));
+    } catch (e) {
+      return const Left(ServerFailure());
+    }
+  }
 }
