@@ -105,7 +105,8 @@ Future<void> initOrderModule() async {
     doSaveOrder: sl(),
     doLoadOrder: sl(),
     doAddOrderDish: sl(),
-    doRemoveOrderDish: sl()
+    doRemoveOrderDish: sl(),
+    doLoadDishes: sl()
   ));
   //! Cubits
   sl.registerFactory(() => EmployeeCubit(doLoadEmployees: sl()));

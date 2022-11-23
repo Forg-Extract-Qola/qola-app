@@ -96,7 +96,7 @@ class OrderCardElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomImageCard(
-      image: 'assets/images/icons/table.png',
+      image: 'assets/images/icons/bell.png',
       title: 'Orden N° ${order.id}',
       description: 'Atiende: ${order.employee?.name}',
       action: VerticalAlignment(

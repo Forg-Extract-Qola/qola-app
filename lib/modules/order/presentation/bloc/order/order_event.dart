@@ -26,19 +26,10 @@ class OrderNoteEventChanged extends OrderEvent {
   List<Object?> get props => [note];
 }
 
-class OrderAddDishEventChanged extends OrderEvent {
-  final String dish;
+class OrderAddOrRemoveDishEventChanged extends OrderEvent {
+  final int dish;
 
-  const OrderAddDishEventChanged(this.dish);
-
-  @override
-  List<Object?> get props => [dish];
-}
-
-class OrderRemoveDishEventChanged extends OrderEvent {
-  final String dish;
-
-  const OrderRemoveDishEventChanged(this.dish);
+  const OrderAddOrRemoveDishEventChanged(this.dish);
 
   @override
   List<Object?> get props => [dish];
