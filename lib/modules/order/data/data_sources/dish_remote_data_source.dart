@@ -7,6 +7,8 @@ import 'package:qola_app/modules/order/data/models/dish_model.dart';
 
 abstract class DishRemoteDataSource {
   Future<List<DishModel>> getDishes();
+  Future<List<DishModel>> getDishesByRestaurantId(int restaurantId);
+  Future<List<DishModel>> getAllDishesByCategoryNameAndRestaurantId(String categoryName, int restaurantId);
   Future<DishModel> getDishById(int dishId);
   Future<DishModel> saveDish(DishModel dish, int restaurantId);
   Future<DishModel> updateDish(DishModel dish);
@@ -59,6 +61,19 @@ class DishRemoteDataSourceImpl implements DishRemoteDataSource {
       jsonEncode(dish.toJson()),
       token: _sessionLocalDataSource.getToken());
     return DishModel.fromJson(response);
+  }
+
+  @override
+  Future<List<DishModel>> getAllDishesByCategoryNameAndRestaurantId(String categoryName, int restaurantId) async {
+    final response = await _httpProvider.get(
+        '$BASE_URL/restaurant/dish/$restaurantId/category/$categoryName');
+    return List<DishModel>.from(response.map((x) => DishModel.fromJson(x)));
+  }
+
+  @override
+  Future<List<DishModel>> getDishesByRestaurantId(int restaurantId) async {
+    final response = await _httpProvider.get('$BASE_URL/restaurant/dish/$restaurantId');
+    return List<DishModel>.from(response.map((x) => DishModel.fromJson(x)));
   }
 
 }

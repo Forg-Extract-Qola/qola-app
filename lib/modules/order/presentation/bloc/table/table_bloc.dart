@@ -26,7 +26,10 @@ class TableBloc extends Bloc<TableEvent, TableState> {
   }
 
   void _onTableLoaded(TableLoaded event, Emitter<TableState> emit) {
-    if (event.table == null) return;
+    if (event.table == null) {
+      add(const TableEnableEdit());
+      return;
+    }
     final name = FieldRequired.dirty(event.table!.name!);
     emit(state.copyWith(
       name: name,

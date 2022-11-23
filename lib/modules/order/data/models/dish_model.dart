@@ -32,4 +32,8 @@ class DishModel {
     "category_dish" : categoryDish,
     "price"         : price
   };
+
+  Map<String, dynamic> toSaveResource() =>
+      {"name": name, "description": description, "image": image, "category_dish": categoryDish, "price": price};
+
 }
