@@ -112,6 +112,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       (l) => null,
       (order) {
         final dishesSelected = state.dishesSelected;
+        for(final dish in dishesSelected) {
+
+        }
       }
     );
   }
