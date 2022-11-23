@@ -27,6 +27,12 @@ class DishCubit extends Cubit<DishState> {
     await _loadDishes();
   }
 
+  openInformationDish(BuildContext context, { required DishDto dish }) async {
+    final result =await Navigator.pushNamed(context, RoutesPath.dishInformationPath, arguments: dish);
+    if (result == null || result is! bool || result == false) return;
+    await _loadDishes();
+  }
+
   _loadDishes() async {
     final result = await _doLoadDishes(NoParams());
     result.fold(

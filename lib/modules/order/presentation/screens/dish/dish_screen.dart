@@ -10,7 +10,6 @@ import 'package:qola_app/shared/qola_card.dart';
 import 'package:qola_app/shared/qola_pages.dart';
 import 'package:qola_app/theme/colors.dart';
 
-
 class DishScreen extends StatelessWidget {
   const DishScreen({Key? key}) : super(key: key);
 

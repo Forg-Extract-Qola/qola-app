@@ -4,11 +4,8 @@ import 'package:qola_app/core/base/injection_container.dart';
 import 'package:qola_app/core/bloc/bloc_state.dart';
 import 'package:qola_app/modules/order/domain/dtos/dish_dto.dart';
 import 'package:qola_app/modules/order/presentation/cubits/dish/dish_cubit.dart';
-import 'package:qola_app/modules/order/presentation/screens/dish/dish_screen.dart';
 import 'package:qola_app/shared/qola_alignments.dart';
 import 'package:qola_app/shared/qola_card.dart';
-import 'package:qola_app/shared/qola_pages.dart';
-import 'package:qola_app/shared/qola_texts.dart';
 import 'package:qola_app/theme/colors.dart';
 
  class DishPage extends StatelessWidget {
@@ -26,26 +23,6 @@ import 'package:qola_app/theme/colors.dart';
     );
   }
 }
-
-
-/*
-class DishPage extends StatelessWidget {
-  const DishPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomBlankWithTitlePage(
-        title: 'Platos',
-        child: BlocProvider(
-          create: (context) =>
-          sl<DishCubit>()
-            ..loadDishes(),
-          child: const DishContent(),
-        )
-    );
-  }
-}
- */
 class DishContent extends StatelessWidget {
   const DishContent({Key? key}) : super(key: key);
 
@@ -110,7 +87,7 @@ class DishCardElement extends StatelessWidget {
       action: VerticalAlignment(
         child: IconButton(
           icon: const Icon(Icons.expand_more, size: 20.0),
-          onPressed: () => context.read<DishCubit>().openAddEditDish(context, dish: dish),
+          onPressed: () => context.read<DishCubit>().openInformationDish(context, dish: dish),
           color: Colors.black45,
           splashRadius: 25.0,
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qola_app/modules/auth/presentation/screens/admin/sign_in_admin_screen.dart';
 import 'package:qola_app/modules/auth/presentation/screens/home_auth_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/dish/dish_add_edit_screen.dart';
+import 'package:qola_app/modules/order/presentation/screens/dish/dish_add_information_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/dish/dish_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/employee/employee_add_edit_screen.dart';
 import 'package:qola_app/modules/order/presentation/screens/employee/employee_screen.dart';
@@ -25,6 +26,7 @@ class RouteGenerator {
       case RoutesPath.tableAddEditPath: return MaterialPageRoute(builder: (_) => const TableAddEditScreen(), settings: settings);
       case RoutesPath.dishListPath: return MaterialPageRoute(builder: (_) => const DishScreen());
       case RoutesPath.dishAddEditPath: return MaterialPageRoute(builder: (_) => const DishAddEditScreen(), settings: settings);
+      case RoutesPath.dishInformationPath: return MaterialPageRoute(builder: (_) => const DishInformationScreen(), settings: settings);
       default: return MaterialPageRoute(builder: (_) => const HomeAuthScreen());
     }
   }
@@ -42,4 +44,5 @@ class RoutesPath {
   static const String tableAddEditPath = '/table-add-edit-screen';
   static const String dishListPath = '/dish-list-screen';
   static const String dishAddEditPath = '/dish-add-edit-screen';
+  static const String dishInformationPath = '/dish-information-screen';
 }
