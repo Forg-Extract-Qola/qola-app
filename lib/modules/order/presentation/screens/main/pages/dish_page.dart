@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qola_app/core/base/injection_container.dart';
 import 'package:qola_app/core/bloc/bloc_state.dart';
 import 'package:qola_app/modules/order/domain/dtos/dish_dto.dart';
 import 'package:qola_app/modules/order/presentation/cubits/dish/dish_cubit.dart';
 import 'package:qola_app/shared/qola_alignments.dart';
 import 'package:qola_app/shared/qola_card.dart';
+import 'package:qola_app/shared/qola_pages.dart';
 import 'package:qola_app/theme/colors.dart';
 
  class DishPage extends StatelessWidget {
@@ -13,16 +13,12 @@ import 'package:qola_app/theme/colors.dart';
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: BlocProvider(
-          create: (context) =>
-          sl<DishCubit>()
-            ..loadDishes(),
-          child: const DishContent(),
-        )
+    return const CustomMainPage(
+        child: DishContent()
     );
   }
 }
+
 class DishContent extends StatelessWidget {
   const DishContent({Key? key}) : super(key: key);
 
@@ -84,6 +80,7 @@ class DishCardElement extends StatelessWidget {
       image: dish.image ?? '',
       title: dish.name ?? '',
       description: dish.categoryDish ?? '',
+      fit: BoxFit.cover,
       action: VerticalAlignment(
         child: IconButton(
           icon: const Icon(Icons.expand_more, size: 20.0),

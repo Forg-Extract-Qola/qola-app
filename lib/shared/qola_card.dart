@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:qola_app/shared/qola_alignments.dart';
 import 'package:qola_app/shared/qola_images.dart';
 import 'package:qola_app/shared/qola_texts.dart';
@@ -10,6 +11,7 @@ class CustomImageCard extends StatelessWidget {
   final String image;
   final double height;
   final Widget? action;
+  final BoxFit fit;
 
   const CustomImageCard({
     Key? key,
@@ -17,6 +19,7 @@ class CustomImageCard extends StatelessWidget {
     required this.image,
     this.description,
     this.action,
+    this.fit = BoxFit.fitWidth,
     this.height = 80
   }) : super(key: key);
 
@@ -43,7 +46,7 @@ class CustomImageCard extends StatelessWidget {
             width: height,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.0),
-              child: CustomImage(url: image),
+              child: CustomImage(url: image, fit: fit),
             ),
           ),
           const SizedBox(width: 20.0),

@@ -37,7 +37,7 @@ class TableRepositoryImpl extends TableRepository {
   Future<Either<Failure, List<TableDto>>> getTables() async {
     try {
       final response = await _tableRemoteDataSource.getTablesByRestaurantId(
-          _sessionLocalDataSource.getRestaurant() ?? 0);
+          _sessionLocalDataSource.getRestaurant());
 
       // save tables to database
       // _tableLocalDataSource.saveTables(TableFactory.convertToListTableEntity(response));
@@ -53,7 +53,7 @@ class TableRepositoryImpl extends TableRepository {
     try {
       final response = await _tableRemoteDataSource.createTable(
           TableFactory.convertToTableModel(table),
-          _sessionLocalDataSource.getRestaurant() ?? 0);
+          _sessionLocalDataSource.getRestaurant());
       return Right(TableFactory.convertToTableDto(response));
     } catch (e) {
       return const Left(ServerFailure());
