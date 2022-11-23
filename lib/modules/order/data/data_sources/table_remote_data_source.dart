@@ -9,7 +9,6 @@ abstract class TableRemoteDataSource {
   Future<List<TableModel>> getTablesByRestaurantId(int restaurantId);
   Future<TableModel> createTable(TableModel tableModel, int restaurantId);
   Future<TableModel> updateTable(TableModel tableModel);
-  //Future<void> deleteTable(int tableId, int restaurantId);
 }
 
 class TableRemoteDataSourceImpl implements TableRemoteDataSource {
