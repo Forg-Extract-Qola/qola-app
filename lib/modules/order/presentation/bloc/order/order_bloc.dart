@@ -120,6 +120,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         for(final dish in dishesSelected) {
 
         }
+        emit(state.copyWith(
+          status: FormzStatus.submissionSuccess)
+        );
       }
     );
   }
