@@ -10,11 +10,12 @@ abstract class OrderEvent extends Equatable {
 
 class OrderLoaded extends OrderEvent {
   final OrderDto? order;
+  final int? tableId;
 
-  const OrderLoaded(this.order);
+  const OrderLoaded(this.order, { this.tableId } );
 
   @override
-  List<Object?> get props => [order];
+  List<Object?> get props => [order, tableId];
 }
 
 class OrderNoteEventChanged extends OrderEvent {

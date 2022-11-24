@@ -12,8 +12,9 @@ import 'package:qola_app/theme/theme.dart';
 class OrderDishDetail extends StatelessWidget {
 
   final OrderDto? order;
+  final int? tableId;
 
-  const OrderDishDetail({Key? key, this.order}) : super(key: key);
+  const OrderDishDetail({Key? key, this.order, this.tableId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class OrderDishDetail extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
       contentTextStyle: genericTextStyle(),
       content: BlocProvider(
-        create: (context) => sl<OrderBloc>()..add(OrderLoaded(order)),
+        create: (context) => sl<OrderBloc>()..add(OrderLoaded(order, tableId: tableId)),
         child: const OrderAddEditForm()
       )
     );

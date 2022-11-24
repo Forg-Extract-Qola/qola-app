@@ -1,3 +1,5 @@
+import 'package:qola_app/core/utils/helper.dart';
+
 class OrderModel {
   int? id;
   String? status;
@@ -19,7 +21,7 @@ class OrderModel {
     id        = json["id"];
     status    = json["status"];
     notes     = json["notes"];
-    total     = json["total"];
+    total     = Helper.convertNumber(json["total"].toString()).toDouble();
     waiterId  = json["waiterId"];
     tableId   = json["tableId"];
   }

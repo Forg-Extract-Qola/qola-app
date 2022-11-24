@@ -61,13 +61,14 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                 dishesSelected: dishesSelected,
                 notes: notes,
                 status: Formz.validate([notes]),
-                dishes: dishes
+                dishes: dishes,
+                tableId: event.tableId
               ));
             }
           );
         }
         else {
-          emit(state.copyWith(dishes: dishes));
+          emit(state.copyWith(dishes: dishes, tableId: event.tableId));
         }
         add(const OrderEnableEdit());
       }
@@ -108,7 +109,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       OrderSubmitted event, Emitter<OrderState> emit) async {
     if (!state.status.isValidated) return;
 
-    (await _doSaveOrder(OrderDto(notes: state.notes.value))).fold(
+    (await _doSaveOrder(OrderDto(
+      notes: state.notes.value,
+      tableId: state.tableId,
+      status: 'PENDING'
+    ))).fold(
       (l) => null,
       (order) {
         final dishesSelected = state.dishesSelected;

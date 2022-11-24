@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qola_app/core/base/injection_container.dart';
 import 'package:qola_app/core/bloc/bloc_state.dart';
 import 'package:qola_app/modules/order/domain/dtos/table_dto.dart';
+import 'package:qola_app/modules/order/presentation/cubits/order/order_cubit.dart';
 import 'package:qola_app/modules/order/presentation/cubits/table/table_cubit.dart';
 import 'package:qola_app/shared/qola_alignments.dart';
 import 'package:qola_app/shared/qola_card.dart';
+import 'package:qola_app/shared/qola_pages.dart';
 import 'package:qola_app/theme/colors.dart';
 
 
@@ -14,10 +16,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          child: Text(
+    return CustomMainPage(
+      child: Column(
+        children: const [
+          Text(
             'Mesas disponibles',
             style: TextStyle(
               color: Colors.black,
@@ -25,16 +27,11 @@ class HomePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        Center(
-        child: BlocProvider(
-        create: (context) =>
-    sl<TableCubit>()
-    ..loadAvailableTables(),
-    child: const HomeContent(),
-    )
-    ),
-      ],
+          Center(
+            child: HomeContent()
+          ),
+        ],
+      ),
     );
   }
 }
@@ -100,6 +97,11 @@ class TableCardElement extends StatelessWidget {
       image: 'assets/images/icons/table.png',
       title: table.name ?? '',
       description: table.isOccupied == true ? 'OCUPADO' : 'LIBRE',
+      action: IconButton(
+        icon: const Icon(Icons.arrow_forward_ios_outlined),
+        onPressed: () => context.read<OrderCubit>().openCreateOrder(context, tableId: table.id),
+        color: Colors.black45,
+      ),
       /*
       * action: VerticalAlignment(
         child: IconButton(

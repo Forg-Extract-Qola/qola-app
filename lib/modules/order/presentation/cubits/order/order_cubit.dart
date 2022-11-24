@@ -22,8 +22,8 @@ class OrderCubit extends Cubit<OrderState> {
     await _loadOrders();
   }
 
-  openCreateOrder(BuildContext context, { OrderDto? order }) async {
-    final result = await showDialog(context: context, builder: (_) => const OrderDishDetail());
+  openCreateOrder(BuildContext context, { OrderDto? order, int? tableId }) async {
+    final result = await showDialog(context: context, builder: (_) =>  OrderDishDetail(order: order, tableId: tableId));
     if (result == null || result is! bool || result == false) return;
     await _loadOrders();
   }

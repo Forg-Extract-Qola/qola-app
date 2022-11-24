@@ -46,7 +46,7 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
     final response = await _httpProvider.post(
         '$BASE_URL/order?'
             'restaurantId=$restaurantId&'
-            'waiterId=${order.waiterId}&'
+            'waiterId=4&'
             'tableId=${order.tableId}',
         jsonEncode(order.toJson()),
         token: _sessionLocalDataSource.getToken());

@@ -4,6 +4,7 @@ part of 'order_bloc.dart';
 class OrderState extends Equatable {
   final FormzStatus status;
   final FieldRequired notes;
+  final int? tableId;
   final List<int> dishesSelected;
   final String? error;
   final bool editable;
@@ -13,6 +14,7 @@ class OrderState extends Equatable {
   const OrderState({
     this.status = FormzStatus.pure,
     this.notes = const FieldRequired.pure(),
+    this.tableId,
     this.dishesSelected = const [],
     this.error,
     this.editable = false,
@@ -23,6 +25,7 @@ class OrderState extends Equatable {
   OrderState copyWith({
     FormzStatus? status,
     FieldRequired? notes,
+    int? tableId,
     List<int>? dishesSelected,
     String? error,
     bool? editable,
@@ -32,6 +35,7 @@ class OrderState extends Equatable {
     return OrderState(
       status: status ?? this.status,
       notes: notes ?? this.notes,
+      tableId: tableId ?? this.tableId,
       dishesSelected: dishesSelected ?? this.dishesSelected,
       error: error ?? this.error,
       editable: editable ?? this.editable,
@@ -41,5 +45,5 @@ class OrderState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, notes, dishesSelected, error, editable, dishes, order];
+  List<Object?> get props => [status, notes, tableId, dishesSelected, error, editable, dishes, order];
 }
